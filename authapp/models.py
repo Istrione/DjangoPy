@@ -5,6 +5,7 @@ from django.db import models
 class User(AbstractUser):
     email = models.EmailField(verbose_name='email', unique=True, blank=True)
     age = models.PositiveIntegerField(null=True, blank=True, verbose_name='Возраст')
+    avatar = models.ImageField(upload_to='users', blank=True, null=True)
 
     class Meta:
         verbose_name = 'пользователь'
