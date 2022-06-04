@@ -1,3 +1,5 @@
+{% load static %}
+
 <!doctype html>
 <html lang="ru">
 
@@ -20,7 +22,17 @@
 
 <body>
 
-{% include 'authapp/includes/inc_messages.html' %}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container">
+        <a class="navbar-brand" href="{% url 'mainapp:index' %}">
+            <img src="{% static 'img/logo.png' %}" alt="">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+{% include 'authapp/includes/messages.html' %}
 
 
 <div class="row justify-content-around align-items-center" style="height: 100vh; margin: 0px">

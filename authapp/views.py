@@ -8,14 +8,14 @@ from django.views.generic import TemplateView
 
 
 class CustomLoginView(LoginView):
-    template_name = 'autapp/login.html'
+    template_name = 'authapp/login.html'
 
     extra_context = {
         'title': 'Вход пользователя'
     }
 
 class RegisterView(TemplateView):
-    template_name = 'autapp/register.html'
+    template_name = 'authapp/register.html'
 
     extra_context = {
         'title': 'Регистрация пользователя'
@@ -63,7 +63,7 @@ class CustomLogoutView(LogoutView):
     pass
 
 class EditView(TemplateView):
-    template_name = 'autapp/edit.html'
+    template_name = 'authapp/edit.html'
 
     extra_context = {
         'title': 'Регистрация пользователя'
