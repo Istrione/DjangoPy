@@ -21,7 +21,7 @@ class NewsManager(models.Manager):
 
 
 class News(BaseModel):
-    objects = NewsManager()
+    #objects = NewsManager()
 
     title = models.CharField(max_length=255, verbose_name='Заголовок')
     preambule = models.CharField(max_length=1024, verbose_name='Вступление')
@@ -37,7 +37,7 @@ class News(BaseModel):
         verbose_name_plural = 'новости'
 
 
-class Courses(BaseModel):
+class Course(BaseModel):
     name = models.CharField(max_length=256, verbose_name="Name")
     description = models.TextField(verbose_name="Description", blank=True, null=True)
     description_as_markdown = models.BooleanField(verbose_name="As markdown", default=False)
@@ -47,9 +47,13 @@ class Courses(BaseModel):
     def __str__(self) -> str:
         return f"{self.pk} {self.name}"
 
+    class Meta:
+        verbose_name = 'курс'
+        verbose_name_plural = 'курсы'
+
 
 class Lesson(BaseModel):
-    course = models.ForeignKey(Courses, on_delete=models.CASCADE, blank=True, null=True)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, blank=True, null=True)
     num = models.PositiveIntegerField(verbose_name="Lesson number")
     title = models.CharField(max_length=256, verbose_name="Name")
     description = models.TextField(verbose_name="Description", blank=True, null=True)
@@ -59,14 +63,20 @@ class Lesson(BaseModel):
         return f"{self.course.name} | {self.num} | {self.title}"
 
     class Meta:
+        verbose_name = 'урок'
+        verbose_name_plural = 'уроки'
         ordering = ("course", "num")
 
 
-class CourseTeachers(BaseModel):
-    course = models.ManyToManyField(Courses)
+class CoursesTeachers(BaseModel):
+    course = models.ManyToManyField(Course)
     name_first = models.CharField(max_length=128, verbose_name="Name")
     name_second = models.CharField(max_length=128, verbose_name="Surname")
     day_birth = models.DateField(verbose_name="Birth date")
+
+    class Meta:
+        verbose_name = 'преподователь курса'
+        verbose_name_plural = 'преподователь курсов'
 
     def __str__(self) -> str:
         return f'{self.pk} {self.name_second} {self.name_first}'
