@@ -3,9 +3,8 @@ from django.db import models
 
 
 class User(AbstractUser):
-    email = models.EmailField(verbose_name = 'email', unique = True, blank = True)
-    age = models.PositiveIntegerField(null = True, blank = True, verbose_name = 'Возраст')
-    avatar = models.ImageField(uploat_to = 'users', blank = True, null = True)
+    email = models.EmailField(verbose_name='email', unique=True, blank=True)
+    age = models.PositiveIntegerField(null=True, blank=True, verbose_name='Возраст')
 
     class Meta:
         verbose_name = 'пользователь'
