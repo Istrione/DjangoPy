@@ -25,8 +25,12 @@ SECRET_KEY = 'django-insecure-1e593@%n8%5yhvr%q%oku0%2pyj7x*jcqggx=r-qk1=!y54vuz
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+if DEBUG:
+    INTERNAL_IPS = [
+        '127.0.0.1'
+    ]
 
 # Application definition
 
@@ -43,6 +47,7 @@ INSTALLED_APPS = [
 
     'social_django',
     'crispy_forms',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +58,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -152,3 +158,43 @@ SOCIAL_AUTH_GITHUB_KEY = '7545ff43c5f935bc56cf'
 SOCIAL_AUTH_GITHUB_SECRET = '6b7cee19dd66f06fec92157f009af525e85662a1'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+LOG_FILE = BASE_DIR / "log" / "main_log.log"
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "formatters": {
+        "console": {
+            "format": "[%(asctime)s] %(levelname)s %(name)s (%(lineno)d)%(message)s"
+        },
+    },
+    "handlers": {
+        "file": {
+          "level": "INFO",
+          "class": "logging.FileHandler",
+          "filename": LOG_FILE,
+          "formatter": "console",
+        },
+        "console": {"class": "logging.StreamHandler", "formatter": "console"},
+    },
+    "loggers":{
+        "django": {"level": "INFO", "handlers": ["console"]},
+    },
+}
+
+# LOGGING = {
+#     "version": 1,
+#     "disable_existing_loggers": False,
+#     "formatters": {
+#         "console": {
+#             "format": "[%(asctime)s] %(levelname)s %(name)s (%(lineno)d)%(message)s"
+#         },
+#     },
+#     "handlers": {
+#         "console": {"class":"logging.StreamHandler", "formatter": "console"},
+#     },
+#     "loggers":{
+#         "django": {"level": "INFO", "handlers": ["console"]},
+#     },
+# }
