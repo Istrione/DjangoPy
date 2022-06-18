@@ -7,6 +7,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('i18n/', include('django.conf.urls.i18n')), # при использование makemessages, выдает ошибку
+    # CommandError: Can't find msguniq. Make sure you have GNU gettext tools 0.15 or newer installed.
     path('', RedirectView.as_view(url='mainapp/')),
     path('mainapp/', include('mainapp.urls', namespace='mainapp')),
     path('authapp/', include('authapp.urls', namespace='authapp')),
