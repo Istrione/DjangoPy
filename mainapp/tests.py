@@ -1,12 +1,13 @@
-from http import HTTPStatus
 from django.test import TestCase, Client
 from django.urls import reverse
+from http import HTTPStatus
 
 from authapp.models import User
 from mainapp.models import News
 
 
 class StaticPagesSmokeTest(TestCase):
+
     def test_page_index_open(self):
         url = reverse('mainapp:index')
         result = self.client.get(url)
@@ -23,14 +24,14 @@ class StaticPagesSmokeTest(TestCase):
 class NewsTestCase(TestCase):
 
     def setUp(self) -> None:
+        super().setUp()
         for i in range(10):
-            News.object.create(
-                title=f'News1{i}',
+            News.objects.create(
+                title=f'News{i}',
                 intro=f'Intro{i}',
                 body=f'Body{i}'
             )
-
-        User.objecs.create_superuser(username='django', password='geekbrains')
+        User.objects.create_superuser(username='django', password='geekbrains')
         self.client_with_auth = Client()
         auth_url = reverse('authapp:login')
         self.client_with_auth.post(
@@ -44,7 +45,7 @@ class NewsTestCase(TestCase):
 
         self.assertEqual(result.status_code, HTTPStatus.OK)
 
-    def test_failed_add_by_anonym(self):
+    def test_failed_open_add_by_anonym(self):
         url = reverse('mainapp:news_create')
 
         result = self.client.get(url)
@@ -59,7 +60,7 @@ class NewsTestCase(TestCase):
         result = self.client_with_auth.post(
             url,
             data={
-                'title': 'Title news',
+                'title': 'Test news',
                 'intro': 'Test intro',
                 'body': 'Test body'
             }

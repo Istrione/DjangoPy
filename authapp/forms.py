@@ -4,6 +4,7 @@ from django.core.exceptions import ValidationError
 
 
 class CustomUserCreationForm(UserCreationForm):
+
     class Meta:
         model = get_user_model()
         fields = (
@@ -12,7 +13,7 @@ class CustomUserCreationForm(UserCreationForm):
             'first_name',
             'last_name',
             'age',
-            'avatar',
+            'avatar'
         )
 
     def clean_age(self):
@@ -21,7 +22,9 @@ class CustomUserCreationForm(UserCreationForm):
             raise ValidationError('Вы слишком молоды для этого сайта')
         return age
 
+
 class CustomUserChangeForm(UserChangeForm):
+
     class Meta:
         model = get_user_model()
         fields = (
@@ -30,7 +33,7 @@ class CustomUserChangeForm(UserChangeForm):
             'first_name',
             'last_name',
             'age',
-            'avatar',
+            'avatar'
         )
 
     def clean_age(self):

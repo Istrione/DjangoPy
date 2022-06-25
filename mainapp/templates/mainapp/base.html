@@ -33,13 +33,14 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-    {% include 'includes/menu.html' %}
+    {% include 'mainapp/includes/inc_main_menu.html' %}
     </div>
 </nav>
 
 
 <div class="container-md">
 {% block content %}
+    qwdqwdqwdqwdq
 {% endblock %}
 </div>
 
@@ -119,7 +120,8 @@
 
 <!-- FontAwesome -->
 <script src="{% static 'js/fontawesome.all.min.js' %}"></script>
-
+{% block js %}
+{% endblock %}
 
 </body>
 

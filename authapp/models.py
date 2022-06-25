@@ -1,12 +1,13 @@
-from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 from django.utils.translation import gettext_lazy as _
+from mainapp.models import NULLABLE
 
 
 class User(AbstractUser):
-    email = models.EmailField(verbose_name=_('email'), unique=True, blank=True)
-    age = models.PositiveIntegerField(null=True, blank=True, verbose_name=_('age'))
-    avatar = models.ImageField(upload_to='users', blank=True, null=True, verbose_name=_('avatar'))
+    email = models.EmailField(blank=True, verbose_name=_('email'), unique=True)
+    age = models.PositiveSmallIntegerField(verbose_name=_('age'), **NULLABLE)
+    avatar = models.ImageField(upload_to='users', **NULLABLE, verbose_name=_('avatar'))
 
     class Meta:
         verbose_name = 'пользователь'
